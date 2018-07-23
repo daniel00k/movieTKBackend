@@ -58,12 +58,17 @@ public class MoviesController {
 
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id){
-        repository.deleteById(id);
-        Optional<Movie> movieOptional = repository.findById(id);
-        if(!movieOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        if(repository.existsById(id)){
+            repository.deleteById(id);
+            Optional<Movie> movieOptional = repository.findById(id);
+            if(!movieOptional.isPresent()){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
     }
 }

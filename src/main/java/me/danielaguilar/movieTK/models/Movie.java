@@ -19,6 +19,12 @@ public class Movie {
         this.description    = description;
     }
 
+    public Movie(final Long id, final String title, final String description){
+        this.id             = id;
+        this.title          = title;
+        this.description    = description;
+    }
+
     public Long getId() {
         return id;
     }
