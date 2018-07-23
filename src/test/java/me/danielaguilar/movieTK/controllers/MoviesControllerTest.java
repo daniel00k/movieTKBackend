@@ -1,22 +1,42 @@
 package me.danielaguilar.movieTK.controllers;
 
-import me.danielaguilar.movieTK.models.Movie;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import me.danielaguilar.movieTK.repositories.MovieRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
-@RestController
-public class MoviesController {
-    private MovieRepository repository;
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class MoviesControllerTest {
 
-    public MoviesController(MovieRepository repository){
-        this.repository = repository;
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    MovieRepository repository;
+
+    @Test
+    public void shouldReturnDefaultMessage() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        this.mockMvc.perform(get("/movies")).andExpect(status().isOk())
+                .andExpect(content().json(mapper.writeValueAsString(repository.findAll())));
     }
 
-    @GetMapping("/movies")
+    /*
     public Iterable<Movie> index(){
         return repository.findAll();
     }
@@ -31,13 +51,7 @@ public class MoviesController {
         }
     }
 
-    /*
-    *@RequestBody
-    {
-        "title": "Bilbo",
-        "description": "Baggins"
-    }
-*/
+
     @PostMapping("/movies")
     public ResponseEntity<Movie> create(@RequestBody Movie movie){
         repository.save(movie);
@@ -65,5 +79,5 @@ public class MoviesController {
         }else {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-    }
+    }*/
 }
