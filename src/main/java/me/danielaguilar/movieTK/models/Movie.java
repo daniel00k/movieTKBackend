@@ -1,10 +1,10 @@
 package me.danielaguilar.movieTK.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "movies")
 public class Movie {
 
     @GeneratedValue
@@ -12,6 +12,12 @@ public class Movie {
     private Long id;
     private String title;
     private String description;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Actor> actors;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Director> directors;
 
     public Movie(){}
     public Movie(final String title, final String description){
