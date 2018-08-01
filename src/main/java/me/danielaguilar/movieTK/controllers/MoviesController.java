@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 public class MoviesController {
     private MovieRepository repository;
+    public static final String MOVIES   =   "/movies";
 
     public MoviesController(MovieRepository repository){
         this.repository = repository;

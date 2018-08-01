@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 @DiscriminatorValue(Actor.DISCRIMINATOR)
 public class Actor extends CastMember {
     public static final String DISCRIMINATOR    =   "1";
+    public Actor(String name){
+        this.name   = name;
+    }
+
     public Actor(String name, Movie movie){
         this.name   = name;
         this.movie  = movie;

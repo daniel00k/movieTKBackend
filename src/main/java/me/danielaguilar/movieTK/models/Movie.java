@@ -20,6 +20,7 @@ public class Movie {
     private List<Director> directors;
 
     public Movie(){}
+
     public Movie(final String title, final String description){
         this.title          = title;
         this.description    = description;
@@ -53,5 +54,21 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public List<Director> getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(List<Director> directors) {
+        this.directors = directors;
     }
 }
